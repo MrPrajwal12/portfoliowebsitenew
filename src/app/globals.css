@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f4f4f5;
+  --bg-elevated: #ffffff;
+  --fg: #18181b;
+  --fg-muted: #71717a;
+  --fg-subtle: #a1a1aa;
+  --accent: #0e7490;
+  --accent-soft: #ecfeff;
+  --accent-hover: #155e75;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --glow: rgba(14, 116, 144, 0.12);
+  --grain-opacity: 0.035;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-elevated: var(--bg-elevated);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-jetbrains);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.atmosphere {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, var(--glow), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(24, 24, 27, 0.04), transparent 50%),
+    linear-gradient(180deg, #fafafa 0%, var(--bg) 40%, #ececef 100%);
+}
+
+.display {
+  font-family: var(--font-syne), var(--font-dm-sans), sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.mono {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+.section-pad {
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.container-max {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--border);
+  border: 0;
 }
